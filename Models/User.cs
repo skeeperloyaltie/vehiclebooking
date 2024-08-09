@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Identity;
+
 namespace OnlineVehicleRentalSystem.Models
 {
     public class User
