@@ -1,13 +1,16 @@
 using Microsoft.AspNetCore.Identity;
 
+
 namespace OnlineVehicleRentalSystem.Models
 {
-    public class User
+    public class User : IdentityUser
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
+        // Add any additional properties you need for your application
+
+        
+        public required string Name { get; set; }
+        
+        public required string Password { get; set; }
         // Additional fields as needed
     }
 }
