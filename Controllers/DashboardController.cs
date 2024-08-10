@@ -121,8 +121,7 @@ namespace OnlineVehicleRentalSystem.Controllers
         }
 
 
-
-        [HttpPost]
+[HttpPost]
 public async Task<IActionResult> AddBooking(Booking model)
 {
     try
@@ -141,7 +140,7 @@ public async Task<IActionResult> AddBooking(Booking model)
             model.UserId = currentUser.Id;
             _logger.LogInformation("AddBooking: UserId {UserId} set for booking.", currentUser.Id);
 
-            // Validate that the selected vehicle exists
+            // Validate that the selected vehicle exists based on the provided VehicleId
             var vehicle = await _context.Vehicles.FindAsync(model.VehicleId);
             if (vehicle == null)
             {
@@ -174,6 +173,7 @@ public async Task<IActionResult> AddBooking(Booking model)
         return View("Error", new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 }
+
 
 
 

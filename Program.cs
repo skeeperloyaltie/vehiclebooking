@@ -44,7 +44,18 @@ app.UseAuthentication(); // Ensure authentication middleware is added
 app.UseAuthorization();
 
 app.MapRazorPages(); // Ensure Razor Pages are mapped
-app.MapDefaultControllerRoute();
+
+// Map the ProfileController routes
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+// Map a specific route for the ProfileController
+app.MapControllerRoute(
+    name: "profile",
+    pattern: "Profile/{action=Index}/{id?}",
+    defaults: new { controller = "Profile", action = "Index" }
+);
 
 // Seed Roles and Admin User
 using (var scope = app.Services.CreateScope())
@@ -84,7 +95,7 @@ async Task SeedRolesAndAdminUser(UserManager<User> userManager, RoleManager<Iden
         logger.LogInformation($"Role '{adminRole}' already exists.");
     }
 
-     var adminEmail = configuration.GetValue<string>("AdminUser:Email");
+    var adminEmail = configuration.GetValue<string>("AdminUser:Email");
     var adminPassword = configuration.GetValue<string>("AdminUser:Password");
 
     // Check if the password is set in the configuration
