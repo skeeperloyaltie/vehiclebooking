@@ -1,0 +1,36 @@
+@model IEnumerable<OnlineVehicleRentalSystem.Models.Vehicle>
+
+@{
+    ViewData["Title"] = "Search Results";
+}
+
+<h2 class="text-center mt-4">Search Results</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-warning text-center">
+        No vehicles found matching your search criteria.
+    </div>
+}
+else
+{
+    <div class="container mt-4">
+        <div class="row">
+            @foreach (var vehicle in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card h-100">
+                        <img src="@vehicle.ImageUrl" class="card-img-top" alt="@vehicle.Model" style="height: 200px; object-fit: cover;" />
+                        <div class="card-body">
+                            <h5 class="card-title">@vehicle.Model (@vehicle.Year)</h5>
+                            <p class="card-text">Price: @vehicle.Price.ToString("C")</p>
+                        </div>
+                        <div class="card-footer text-center">
+                            <a href="#" class="btn btn-primary">Book Now</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}

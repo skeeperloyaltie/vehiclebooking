@@ -1,0 +1,41 @@
+@model IEnumerable<OnlineVehicleRentalSystem.Models.Booking>
+
+@{
+    ViewData["Title"] = "Manage Bookings";
+}
+
+<h2>Manage Bookings</h2>
+
+@if (!Model.Any())
+{
+    <p>No bookings found.</p>
+}
+else
+{
+    <table class="table table-bordered">
+        <thead class="thead-light">
+            <tr>
+                <th scope="col">User</th>
+                <th scope="col">Vehicle</th>
+                <th scope="col">Rental Date</th>
+                <th scope="col">Return Date</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var booking in Model)
+            {
+                <tr>
+                    <td>@booking.User?.UserName</td>
+                    <td>@booking.Vehicle?.Model (@booking.Vehicle?.Year)</td>
+                    <td>@booking.RentalDate.ToString("yyyy-MM-dd")</td>
+                    <td>@booking.ReturnDate.ToString("yyyy-MM-dd")</td>
+                    <td>
+                        <a href="@Url.Action("EditBooking", new { id = booking.Id })" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="@Url.Action("DeleteBooking", new { id = booking.Id })" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

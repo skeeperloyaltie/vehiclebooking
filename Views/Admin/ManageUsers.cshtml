@@ -1,0 +1,26 @@
+@model IEnumerable<OnlineVehicleRentalSystem.Models.User>
+
+<h2>Manage Users</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.Email</td>
+                <td>@user.Name</td>
+                <td>
+                    <a href="@Url.Action("EditUser", new { id = user.Id })" class="btn btn-warning">Edit</a>
+                    <a href="@Url.Action("DeleteUser", new { id = user.Id })" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

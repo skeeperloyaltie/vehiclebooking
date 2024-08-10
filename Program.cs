@@ -54,13 +54,14 @@ using (var scope = app.Services.CreateScope())
 
     var userManager = services.GetRequiredService<UserManager<User>>();
     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+    var configuration = services.GetRequiredService<IConfiguration>();
 
-    await SeedRolesAndAdminUser(userManager, roleManager, logger);
+    await SeedRolesAndAdminUser(userManager, roleManager, logger, configuration);
 }
 
 app.Run();
 
-async Task SeedRolesAndAdminUser(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, ILogger logger)
+async Task SeedRolesAndAdminUser(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, ILogger logger, IConfiguration configuration)
 {
     string adminRole = "Admin";
     logger.LogInformation("Starting role and admin user seeding...");
@@ -83,14 +84,22 @@ async Task SeedRolesAndAdminUser(UserManager<User> userManager, RoleManager<Iden
         logger.LogInformation($"Role '{adminRole}' already exists.");
     }
 
-    string adminEmail = "admin@gmail.com";
-    string adminPassword = "admin123!";
+     var adminEmail = configuration.GetValue<string>("AdminUser:Email");
+    var adminPassword = configuration.GetValue<string>("AdminUser:Password");
 
-    // Create the Admin user if it doesn't exist
+    // Check if the password is set in the configuration
+    if (string.IsNullOrEmpty(adminPassword))
+    {
+        logger.LogError("Admin password is null or empty. Ensure it is set in the configuration.");
+        return;
+    }
+
+    // Find or create the admin user
     var adminUser = await userManager.FindByEmailAsync(adminEmail);
     if (adminUser == null)
     {
         adminUser = new User { UserName = adminEmail, Email = adminEmail, Name = "Admin User" };
+
         var userResult = await userManager.CreateAsync(adminUser, adminPassword);
         if (userResult.Succeeded)
         {
@@ -106,11 +115,31 @@ async Task SeedRolesAndAdminUser(UserManager<User> userManager, RoleManager<Iden
         }
         else
         {
-            logger.LogError($"Failed to create admin user '{adminEmail}'.");
+            logger.LogError($"Failed to create admin user '{adminEmail}'. Errors:");
+            foreach (var error in userResult.Errors)
+            {
+                logger.LogError($"- {error.Description}");
+            }
         }
     }
     else
     {
         logger.LogInformation($"Admin user '{adminEmail}' already exists.");
+
+        // If the user exists, you can update the password here
+        var token = await userManager.GeneratePasswordResetTokenAsync(adminUser);
+        var resetResult = await userManager.ResetPasswordAsync(adminUser, token, adminPassword);
+        if (resetResult.Succeeded)
+        {
+            logger.LogInformation($"Admin user '{adminEmail}' password reset successfully.");
+        }
+        else
+        {
+            logger.LogError($"Failed to reset password for admin user '{adminEmail}'. Errors:");
+            foreach (var error in resetResult.Errors)
+            {
+                logger.LogError($"- {error.Description}");
+            }
+        }
     }
 }

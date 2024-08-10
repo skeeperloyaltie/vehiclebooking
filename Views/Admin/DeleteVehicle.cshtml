@@ -1,0 +1,25 @@
+@model OnlineVehicleRentalSystem.Models.Vehicle
+
+<h2>Delete Vehicle</h2>
+
+<form asp-action="DeleteVehicle">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label>Model:</label>
+        <span>@Model.Model</span>
+    </div>
+    <div class="form-group">
+        <label>Year:</label>
+        <span>@Model.Year</span>
+    </div>
+    <div class="form-group">
+        <label>Price:</label>
+        <span>@Model.Price</span>
+    </div>
+    <div class="form-group">
+        <label>ImageUrl:</label>
+        <span>@Model.ImageUrl</span>
+    </div>
+    <button type="submit" class="btn btn-danger">Delete Vehicle</button>
+    <a href="@Url.Action("ManageVehicles")" class="btn btn-secondary">Cancel</a>
+</form>

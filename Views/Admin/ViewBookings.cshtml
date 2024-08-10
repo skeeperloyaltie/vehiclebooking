@@ -1,24 +1,29 @@
 @model IEnumerable<Booking>
 
-<h2>View Bookings</h2>
+<h2>Manage Bookings</h2>
 
 <table class="table">
     <thead>
         <tr>
-            <th>Vehicle</th>
             <th>User</th>
+            <th>Vehicle</th>
             <th>Rental Date</th>
             <th>Return Date</th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var booking in Model)
         {
             <tr>
-                <td>@booking.VehicleId</td>
-                <td>@booking.UserId</td>
-                <td>@booking.RentalDate.ToShortDateString()</td>
-                <td>@booking.ReturnDate.ToShortDateString()</td>
+                <td>@booking.User.Email</td>
+                <td>@booking.Vehicle.Model</td>
+                <td>@booking.RentalDate.ToString("d")</td>
+                <td>@booking.ReturnDate.ToString("d")</td>
+                <td>
+                    <a href="@Url.Action("EditBooking", new { id = booking.Id })" class="btn btn-warning">Edit</a>
+                    <a href="@Url.Action("DeleteBooking", new { id = booking.Id })" class="btn btn-danger">Delete</a>
+                </td>
             </tr>
         }
     </tbody>

@@ -24,33 +24,49 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
-
-
-
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Dashboard" asp-action="VehicleListings">Vehicles</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Dashboard" asp-action="Search">Search</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Dashboard" asp-action="Bookings">Bookings</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Dashboard" asp-action="Payment">Payment</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Dashboard" asp-action="Reviews">Reviews</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Dashboard" asp-action="Profile">Profile</a>
-                        </li>
-
+                        if (User.IsInRole("Admin"))
+                        {
+                            <!-- Admin-specific navigation links -->
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Admin" asp-action="Index">Admin Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Admin" asp-action="ManageVehicles">Manage Vehicles</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Admin" asp-action="ViewBookings">View Bookings</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Admin" asp-action="ManageUsers">Manage Users</a>
+                            </li>
+                        }
+                        else
+                        {
+                            <!-- Regular user navigation links -->
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Dashboard" asp-action="Index">Dashboard</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Dashboard" asp-action="VehicleListings">Vehicles</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Dashboard" asp-action="Search">Search</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Dashboard" asp-action="Bookings">Bookings</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Dashboard" asp-action="Payment">Payment</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Dashboard" asp-action="Reviews">Reviews</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Dashboard" asp-action="Profile">Profile</a>
+                            </li>
+                        }
 
                         <li class="nav-item">
                             <a class="nav-link" asp-area="Identity" asp-page="/Account/Logout"
