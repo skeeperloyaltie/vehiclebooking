@@ -1,16 +1,17 @@
 using Microsoft.AspNetCore.Identity;
-
+using System.Collections.Generic;
 
 namespace OnlineVehicleRentalSystem.Models
 {
     public class User : IdentityUser
     {
-        // Add any additional properties you need for your application
+        // The 'Name' property is required and initialized with a default value.
+        public required string Name { get; set; } = string.Empty;
+        
+        // Override the 'PasswordHash' property for password storage.
+        public override string PasswordHash { get; set; } = string.Empty;
 
-        
-        public required string Name { get; set; }
-        
-        public required string Password { get; set; }
-        // Additional fields as needed
+        // Navigation property for the bookings associated with the user.
+        public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
     }
 }

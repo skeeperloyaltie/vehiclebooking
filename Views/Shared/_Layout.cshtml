@@ -30,21 +30,27 @@
                     <li class="nav-item">
                         <a class="nav-link" href="/Vehicles">Vehicles</a>
                     </li>
-                    <ul class="navbar-nav ml-auto">
+                    
+                    @if (User.Identity.IsAuthenticated)
+                    {
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="Identity" asp-page="Identity/Pages/Account/Login">Login</a>
+                            <a class="nav-link" asp-area="Identity" asp-page="/Account/Logout" asp-page-handler="Post">Logout</a>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="Identity" asp-page="/Account/Login">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" asp-area="Identity" asp-page="Identity/Account/Register">Register</a>
+                            <a class="nav-link" asp-area="Identity" asp-page="/Account/Register">Register</a>
                         </li>
-                    </ul>
-
+                    }
                 </ul>
             </div>
         </nav>
-
-
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -64,8 +70,6 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/popper.js/dist/popper.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
-
-
 
     @await RenderSectionAsync("Scripts", required: false)
 </body>
