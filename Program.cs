@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using OnlineVehicleRentalSystem.Data;
 using OnlineVehicleRentalSystem.Models;
+using Microsoft.Extensions.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +18,13 @@ builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfi
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+
+// Add logging services
+builder.Services.AddLogging(config =>
+{
+    config.AddConsole();
+    config.AddDebug();
+});
 
 var app = builder.Build();
 
@@ -42,54 +50,67 @@ app.MapDefaultControllerRoute();
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
+    var logger = services.GetRequiredService<ILogger<Program>>();
 
     var userManager = services.GetRequiredService<UserManager<User>>();
     var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
 
-    await SeedRolesAndAdminUser(userManager, roleManager);
+    await SeedRolesAndAdminUser(userManager, roleManager, logger);
 }
 
 app.Run();
 
-using (var scope = app.Services.CreateScope())
-{
-    var services = scope.ServiceProvider;
-
-    var userManager = services.GetRequiredService<UserManager<User>>();
-    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-
-    await SeedRolesAndAdminUser(userManager, roleManager);
-}
-
-async Task SeedRolesAndAdminUser(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
+async Task SeedRolesAndAdminUser(UserManager<User> userManager, RoleManager<IdentityRole> roleManager, ILogger logger)
 {
     string adminRole = "Admin";
+    logger.LogInformation("Starting role and admin user seeding...");
 
     // Create the Admin role if it doesn't exist
     if (!await roleManager.RoleExistsAsync(adminRole))
     {
-        await roleManager.CreateAsync(new IdentityRole(adminRole));
-    }
-
-    string adminEmail = "admin@gmail.com";
-    string adminPassword = "admin123";
-
-    // Create the Admin user if it doesn't exist
-    if (await userManager.FindByEmailAsync(adminEmail) == null)
-    {
-        var adminUser = new User { UserName = adminEmail, Email = adminEmail, Name = "Admin User" };
-        var result = await userManager.CreateAsync(adminUser, adminPassword);
-        if (result.Succeeded)
+        var roleResult = await roleManager.CreateAsync(new IdentityRole(adminRole));
+        if (roleResult.Succeeded)
         {
-            await userManager.AddToRoleAsync(adminUser, adminRole);
+            logger.LogInformation($"Role '{adminRole}' created successfully.");
         }
         else
         {
-            foreach (var error in result.Errors)
-            {
-                Console.WriteLine(error.Description);
-            }
+            logger.LogError($"Failed to create role '{adminRole}'.");
         }
     }
-}
+    else
+    {
+        logger.LogInformation($"Role '{adminRole}' already exists.");
+    }
 
+    string adminEmail = "admin@gmail.com";
+    string adminPassword = "admin123!";
+
+    // Create the Admin user if it doesn't exist
+    var adminUser = await userManager.FindByEmailAsync(adminEmail);
+    if (adminUser == null)
+    {
+        adminUser = new User { UserName = adminEmail, Email = adminEmail, Name = "Admin User" };
+        var userResult = await userManager.CreateAsync(adminUser, adminPassword);
+        if (userResult.Succeeded)
+        {
+            var roleAssignResult = await userManager.AddToRoleAsync(adminUser, adminRole);
+            if (roleAssignResult.Succeeded)
+            {
+                logger.LogInformation($"Admin user '{adminEmail}' created and assigned to role '{adminRole}'.");
+            }
+            else
+            {
+                logger.LogError($"Failed to assign admin user '{adminEmail}' to role '{adminRole}'.");
+            }
+        }
+        else
+        {
+            logger.LogError($"Failed to create admin user '{adminEmail}'.");
+        }
+    }
+    else
+    {
+        logger.LogInformation($"Admin user '{adminEmail}' already exists.");
+    }
+}
