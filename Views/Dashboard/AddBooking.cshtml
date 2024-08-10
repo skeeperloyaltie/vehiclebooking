@@ -1,0 +1,51 @@
+@model OnlineVehicleRentalSystem.Models.Booking
+
+@{
+    ViewData["Title"] = "Add Booking";
+}
+
+<h2>Add Booking</h2>
+
+<form asp-action="AddBooking" method="post">
+    <!-- Hidden field to automatically populate UserId from the logged-in user -->
+    <input type="hidden" asp-for="UserId" />
+
+    <div class="form-group">
+        <label asp-for="VehicleId">Vehicle</label>
+        <select asp-for="VehicleId" class="form-control" required>
+            <option value="">Select a vehicle</option> <!-- Provide a default option -->
+            @foreach (var vehicle in ViewBag.Vehicles)
+            {
+                <option value="@vehicle.Id">@vehicle.Model (@vehicle.Year)</option>
+            }
+        </select>
+        <span asp-validation-for="VehicleId" class="text-danger"></span>
+    </div>
+    
+    <!-- Optional field for VehicleId1 if needed -->
+    <div class="form-group">
+        <label asp-for="VehicleId1">Additional Vehicle</label>
+        <select asp-for="VehicleId1" class="form-control">
+            <option value="">Select an additional vehicle</option>
+            @foreach (var vehicle in ViewBag.Vehicles)
+            {
+                <option value="@vehicle.Id">@vehicle.Model (@vehicle.Year)</option>
+            }
+        </select>
+        <span asp-validation-for="VehicleId1" class="text-danger"></span>
+    </div>
+   
+    <div class="form-group">
+        <label asp-for="RentalDate">Rental Date</label>
+        <input asp-for="RentalDate" class="form-control" type="date" required />
+        <span asp-validation-for="RentalDate" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ReturnDate">Return Date</label>
+        <input asp-for="ReturnDate" class="form-control" type="date" required />
+        <span asp-validation-for="ReturnDate" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add Booking</button>
+</form>
