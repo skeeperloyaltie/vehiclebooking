@@ -1,0 +1,79 @@
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<div class="container">
+    <header class="d-flex flex-wrap justify-content-between py-3 mb-4 border-bottom">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 text-dark text-decoration-none">
+            <span class="fs-4">Vehicle Rental</span>
+        </a>
+
+        <form class="d-flex mx-auto w-50" role="search">
+            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+
+        <ul class="nav nav-pills">
+            <li class="nav-item"><a href="#" class="nav-link">Link 1</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Link 2</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Link 3</a></li>
+        </ul>
+    </header>
+
+    <h2>Dashboard Overview</h2>
+    <p>Welcome to your dashboard!</p>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Vehicle Listings</h5>
+                    <p class="card-text">View and manage all available vehicles.</p>
+                    <a href="@Url.Action("VehicleListings", "Dashboard")" class="btn btn-primary">Go to Listings</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Bookings</h5>
+                    <p class="card-text">Manage your bookings and reservations.</p>
+                    <a href="@Url.Action("Bookings", "Dashboard")" class="btn btn-primary">Go to Bookings</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Payments</h5>
+                    <p class="card-text">Process and manage payments.</p>
+                    <a href="@Url.Action("Payment", "Dashboard")" class="btn btn-primary">Go to Payments</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Reviews</h5>
+                    <p class="card-text">View and manage user reviews and ratings.</p>
+                    <a href="@Url.Action("Reviews", "Dashboard")" class="btn btn-primary">Go to Reviews</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Profile</h5>
+                    <p class="card-text">View and edit your profile.</p>
+                    <a href="@Url.Action("Profile", "Dashboard")" class="btn btn-primary">Go to Profile</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,18 @@
+@model IEnumerable<OnlineVehicleRentalSystem.Models.Vehicle>
+
+@{
+    ViewData["Title"] = "Vehicle Listings";
+}
+
+<h2>Available Vehicles</h2>
+
+<ul>
+    @foreach (var vehicle in Model)
+    {
+        <li>
+            <img src="@vehicle.ImageUrl" alt="@vehicle.Model" width="100" />
+            <h3>@vehicle.Model (@vehicle.Year)</h3>
+            <p>Price: @vehicle.Price.ToString("C")</p>
+        </li>
+    }
+</ul>
