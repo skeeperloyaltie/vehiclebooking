@@ -42,8 +42,8 @@ public class AccountController : Controller
 
 public class LoginViewModel
 {
-    internal readonly User Email;
+    internal readonly User? Email;
 
     public bool RememberMe { get; internal set; }
-    public string Password { get; internal set; }
+    public string? Password { get; internal set; }
 }
