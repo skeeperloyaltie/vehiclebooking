@@ -1,0 +1,25 @@
+@model IEnumerable<Booking>
+
+<h2>View Bookings</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Vehicle</th>
+            <th>User</th>
+            <th>Rental Date</th>
+            <th>Return Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var booking in Model)
+        {
+            <tr>
+                <td>@booking.VehicleId</td>
+                <td>@booking.UserId</td>
+                <td>@booking.RentalDate.ToShortDateString()</td>
+                <td>@booking.ReturnDate.ToShortDateString()</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,30 @@
+@model IEnumerable<Vehicle>
+
+<h2>Manage Vehicles</h2>
+
+<a href="@Url.Action("AddVehicle")" class="btn btn-success">Add New Vehicle</a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Model</th>
+            <th>Year</th>
+            <th>Price</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var vehicle in Model)
+        {
+            <tr>
+                <td>@vehicle.Model</td>
+                <td>@vehicle.Year</td>
+                <td>@vehicle.Price</td>
+                <td>
+                    <a href="@Url.Action("EditVehicle", new { id = vehicle.Id })" class="btn btn-warning">Edit</a>
+                    <a href="@Url.Action("DeleteVehicle", new { id = vehicle.Id })" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

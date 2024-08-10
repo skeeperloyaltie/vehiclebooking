@@ -13,5 +13,8 @@ namespace OnlineVehicleRentalSystem.Models
 
         // Navigation property for the bookings associated with the user.
         public ICollection<Booking> Bookings { get; set; } = new List<Booking>();
+        
+        // Navigation property for roles associated with the user.
+        public ICollection<IdentityUserRole<string>> UserRoles { get; set; } = new List<IdentityUserRole<string>>();
     }
 }

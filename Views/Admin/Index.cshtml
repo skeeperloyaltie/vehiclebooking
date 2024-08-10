@@ -1,0 +1,8 @@
+@model AdminDashboardViewModel
+<h2>Admin Dashboard</h2>
+
+<p>Total Users: @Model.TotalUsers</p>
+<p>Total Bookings: @Model.TotalBookings</p>
+
+<a href="@Url.Action("ManageVehicles")" class="btn btn-primary">Manage Vehicles</a>
+<a href="@Url.Action("ViewBookings")" class="btn btn-primary">View Bookings</a>

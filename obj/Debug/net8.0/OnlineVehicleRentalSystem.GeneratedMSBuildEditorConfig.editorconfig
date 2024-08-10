@@ -50,6 +50,22 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = QXJlYXMvSWRlbnRpdHkvUGFnZXMvX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[/home/freak/Documents/Tarrus/OnlineVehicleRentalSystem/Views/Admin/EditVehicle.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWRtaW4vRWRpdFZlaGljbGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/freak/Documents/Tarrus/OnlineVehicleRentalSystem/Views/Admin/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWRtaW4vSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/freak/Documents/Tarrus/OnlineVehicleRentalSystem/Views/Admin/ManageVehicles.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWRtaW4vTWFuYWdlVmVoaWNsZXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/freak/Documents/Tarrus/OnlineVehicleRentalSystem/Views/Admin/ViewBookings.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvQWRtaW4vVmlld0Jvb2tpbmdzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [/home/freak/Documents/Tarrus/OnlineVehicleRentalSystem/Views/Dashboard/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvRGFzaGJvYXJkL0luZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -76,6 +92,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/home/freak/Documents/Tarrus/OnlineVehicleRentalSystem/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL0Vycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/freak/Documents/Tarrus/OnlineVehicleRentalSystem/Views/Shared/_AdminLayout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3MvU2hhcmVkL19BZG1pbkxheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [/home/freak/Documents/Tarrus/OnlineVehicleRentalSystem/Views/Shared/_LoginPartial.cshtml]
