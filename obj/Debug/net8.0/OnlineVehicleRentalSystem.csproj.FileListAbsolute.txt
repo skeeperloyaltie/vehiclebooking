@@ -58,7 +58,6 @@
 /home/freak/Documents/Tarrus/OnlineVehicleRentalSystem/bin/Debug/net8.0/System.Runtime.Caching.dll
 /home/freak/Documents/Tarrus/OnlineVehicleRentalSystem/bin/Debug/net8.0/System.Security.Cryptography.ProtectedData.dll
 /home/freak/Documents/Tarrus/OnlineVehicleRentalSystem/bin/Debug/net8.0/System.Security.Permissions.dll
-/home/freak/Documents/Tarrus/OnlineVehicleRentalSystem/bin/Debug/net8.0/System.Text.Json.dll
 /home/freak/Documents/Tarrus/OnlineVehicleRentalSystem/bin/Debug/net8.0/System.Windows.Extensions.dll
 /home/freak/Documents/Tarrus/OnlineVehicleRentalSystem/bin/Debug/net8.0/cs/Microsoft.CodeAnalysis.resources.dll
 /home/freak/Documents/Tarrus/OnlineVehicleRentalSystem/bin/Debug/net8.0/de/Microsoft.CodeAnalysis.resources.dll
