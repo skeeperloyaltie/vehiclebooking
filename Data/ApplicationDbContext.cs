@@ -18,20 +18,25 @@ namespace OnlineVehicleRentalSystem.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // Example of configuring relationships or other properties
+            // Configure the relationship between Booking and User
+            modelBuilder.Entity<Booking>()
+                .HasOne(b => b.User)
+                .WithMany(u => u.Bookings)
+                .HasForeignKey(b => b.UserId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             // Configure the relationship between Booking and Vehicle
             modelBuilder.Entity<Booking>()
-                .HasOne<User>(b => b.User)  // Each Booking has one User
-                .WithMany(u => u.Bookings)  // Each User can have many Bookings
-                .HasForeignKey(b => b.UserId);  // Foreign key on Booking is UserId
+                .HasOne(b => b.Vehicle)
+                .WithMany(v => v.Bookings)
+                .HasForeignKey(b => b.VehicleId)
+                .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<Booking>()
-                .HasOne<Vehicle>(b => b.Vehicle)  // Each Booking is related to one Vehicle
-                .WithMany()  // A vehicle can have many bookings
-                .HasForeignKey(b => b.VehicleId);  // Foreign key on Booking is VehicleId
+            // Fix potential issue with IdentityUserRole shadow properties
+            modelBuilder.Entity<Microsoft.AspNetCore.Identity.IdentityUserRole<string>>()
+                .HasKey(ur => new { ur.UserId, ur.RoleId });
 
-            // You can add more configurations here if necessary
+            // Further configuration (if needed) goes here
         }
     }
 }

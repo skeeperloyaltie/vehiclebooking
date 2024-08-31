@@ -17,7 +17,7 @@ namespace OnlineVehicleRentalSystem.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.7")
+                .HasAnnotation("ProductVersion", "8.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             MySqlModelBuilderExtensions.AutoIncrementColumns(modelBuilder);
@@ -184,16 +184,11 @@ namespace OnlineVehicleRentalSystem.Migrations
                     b.Property<int>("VehicleId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("VehicleId1")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
                     b.HasIndex("VehicleId");
-
-                    b.HasIndex("VehicleId1");
 
                     b.ToTable("Bookings");
                 });
@@ -236,7 +231,6 @@ namespace OnlineVehicleRentalSystem.Migrations
                         .HasColumnType("varchar(256)");
 
                     b.Property<string>("PasswordHash")
-                        .IsRequired()
                         .HasColumnType("longtext");
 
                     b.Property<string>("PhoneNumber")
@@ -359,14 +353,10 @@ namespace OnlineVehicleRentalSystem.Migrations
                         .IsRequired();
 
                     b.HasOne("OnlineVehicleRentalSystem.Models.Vehicle", "Vehicle")
-                        .WithMany()
-                        .HasForeignKey("VehicleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("OnlineVehicleRentalSystem.Models.Vehicle", null)
                         .WithMany("Bookings")
-                        .HasForeignKey("VehicleId1");
+                        .HasForeignKey("VehicleId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("User");
 
