@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using OnlineVehicleRentalSystem.Data;
 using OnlineVehicleRentalSystem.Models;
 using System.Linq;
@@ -108,18 +109,22 @@ namespace OnlineVehicleRentalSystem.Controllers
             {
                 return NotFound();
             }
-            return View(user);
+            return View(new EditUserViewModel
+            {
+                Id = user.Id,
+                Email = user.Email,
+                Name = user.Name
+            });
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditUser(User model)
+        public async Task<IActionResult> EditUser(EditUserViewModel model)
         {
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByIdAsync(model.Id);
                 if (user != null)
                 {
-                    user.UserName = model.UserName;
                     user.Email = model.Email;
                     user.Name = model.Name;
 
@@ -165,42 +170,10 @@ namespace OnlineVehicleRentalSystem.Controllers
             return RedirectToAction("ManageUsers");
         }
 
-        // Reset User Password
-        [HttpGet]
-        public IActionResult ResetUserPassword()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> ResetUserPassword(string email, string newPassword)
-        {
-            var user = await _userManager.FindByEmailAsync(email);
-            if (user == null)
-            {
-                ModelState.AddModelError(string.Empty, "User not found.");
-                return View();
-            }
-
-            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
-            var result = await _userManager.ResetPasswordAsync(user, token, newPassword);
-
-            if (result.Succeeded)
-            {
-                ViewBag.Message = "Password reset successfully.";
-            }
-            else
-            {
-                ModelState.AddModelError(string.Empty, "Error resetting password: " + string.Join(", ", result.Errors.Select(e => e.Description)));
-            }
-
-            return View();
-        }
-
         // Manage Bookings
         public IActionResult ViewBookings()
         {
-            var bookings = _context.Bookings.ToList();
+            var bookings = _context.Bookings.Include(b => b.User).Include(b => b.Vehicle).ToList();
             return View(bookings);
         }
 

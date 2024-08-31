@@ -189,6 +189,18 @@
       "PackagePath": "staticwebassets/favicon.ico"
     },
     {
+      "Id": "/home/freak/Documents/Tarrus/OnlineVehicleRentalSystem/wwwroot/images/er.jpg",
+      "PackagePath": "staticwebassets/images/er.jpg"
+    },
+    {
+      "Id": "/home/freak/Documents/Tarrus/OnlineVehicleRentalSystem/wwwroot/images/lambo.jpg",
+      "PackagePath": "staticwebassets/images/lambo.jpg"
+    },
+    {
+      "Id": "/home/freak/Documents/Tarrus/OnlineVehicleRentalSystem/wwwroot/images/vss.jpg",
+      "PackagePath": "staticwebassets/images/vss.jpg"
+    },
+    {
       "Id": "/home/freak/Documents/Tarrus/OnlineVehicleRentalSystem/wwwroot/js/site.js",
       "PackagePath": "staticwebassets/js/site.js"
     },

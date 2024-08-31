@@ -4,22 +4,22 @@
 
 <form asp-action="AddVehicle" method="post">
     <div class="form-group">
-        <label asp-for="Model"></label>
+        <label asp-for="Model" class="form-label"></label>
         <input asp-for="Model" class="form-control" />
         <span asp-validation-for="Model" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Year"></label>
+        <label asp-for="Year" class="form-label"></label>
         <input asp-for="Year" class="form-control" />
         <span asp-validation-for="Year" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="Price"></label>
-        <input asp-for="Price" class="form-control" />
+        <label asp-for="Price" class="form-label"></label>
+        <input asp-for="Price" class="form-control" type="number" step="0.01" />
         <span asp-validation-for="Price" class="text-danger"></span>
     </div>
     <div class="form-group">
-        <label asp-for="ImageUrl"></label>
+        <label asp-for="ImageUrl" class="form-label"></label>
         <input asp-for="ImageUrl" class="form-control" />
         <span asp-validation-for="ImageUrl" class="text-danger"></span>
     </div>

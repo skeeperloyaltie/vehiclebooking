@@ -66,7 +66,7 @@ CREATE TABLE `AspNetRoles` (
 LOCK TABLES `AspNetRoles` WRITE;
 /*!40000 ALTER TABLE `AspNetRoles` DISABLE KEYS */;
 INSERT INTO `AspNetRoles` VALUES
-('12cf6e6a-7ad2-422a-b33a-8ca972729652','Admin','ADMIN',NULL);
+('49d34990-aab4-48dc-93ed-e8554b53d44c','Admin','ADMIN',NULL);
 /*!40000 ALTER TABLE `AspNetRoles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -151,7 +151,7 @@ CREATE TABLE `AspNetUserRoles` (
 LOCK TABLES `AspNetUserRoles` WRITE;
 /*!40000 ALTER TABLE `AspNetUserRoles` DISABLE KEYS */;
 INSERT INTO `AspNetUserRoles` VALUES
-('90e168dc-6abb-47a5-9efa-ab8dc1aef8ca','12cf6e6a-7ad2-422a-b33a-8ca972729652',NULL);
+('36d1883e-bd12-4da0-ae3b-06737d2c6ef5','49d34990-aab4-48dc-93ed-e8554b53d44c',NULL);
 /*!40000 ALTER TABLE `AspNetUserRoles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -191,12 +191,12 @@ DROP TABLE IF EXISTS `AspNetUsers`;
 CREATE TABLE `AspNetUsers` (
   `Id` varchar(255) NOT NULL,
   `Name` longtext NOT NULL,
-  `PasswordHash` longtext NOT NULL,
   `UserName` varchar(256) DEFAULT NULL,
   `NormalizedUserName` varchar(256) DEFAULT NULL,
   `Email` varchar(256) DEFAULT NULL,
   `NormalizedEmail` varchar(256) DEFAULT NULL,
   `EmailConfirmed` tinyint(1) NOT NULL,
+  `PasswordHash` longtext DEFAULT NULL,
   `SecurityStamp` longtext DEFAULT NULL,
   `ConcurrencyStamp` longtext DEFAULT NULL,
   `PhoneNumber` longtext DEFAULT NULL,
@@ -218,7 +218,7 @@ CREATE TABLE `AspNetUsers` (
 LOCK TABLES `AspNetUsers` WRITE;
 /*!40000 ALTER TABLE `AspNetUsers` DISABLE KEYS */;
 INSERT INTO `AspNetUsers` VALUES
-('90e168dc-6abb-47a5-9efa-ab8dc1aef8ca','Admin User','AQAAAAIAAYagAAAAEKz1i1MUxH2J2+b/3ZVPfmtfHBuLoWqiKv5ImXJ0S5na/IT60wNKTDt3jc93Z2gi0w==','admin@gmail.com','ADMIN@GMAIL.COM','admin@gmail.com','ADMIN@GMAIL.COM',0,'RI24L7HLF5OTJU72VTJNPXIYEANTX2NL','d465dc4a-dff1-4fb8-8f08-f84af74010c2',NULL,0,0,NULL,1,0);
+('36d1883e-bd12-4da0-ae3b-06737d2c6ef5','Admin User','admin@gmail.com','ADMIN@GMAIL.COM','admin@gmail.com','ADMIN@GMAIL.COM',1,'AQAAAAIAAYagAAAAEBv/Ks8qxStyiRbv7TpfE5MYeAzsrBvP8s75an1bT7ibbEPwT0j0Ypko3YsMyypkyQ==','VHVWGRCQROWD5OK6PNLVEHW4WNQZJMPT','e2948241-3150-46e1-a5e2-7ce1621b7166',NULL,0,0,NULL,1,0);
 /*!40000 ALTER TABLE `AspNetUsers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -235,14 +235,11 @@ CREATE TABLE `Bookings` (
   `VehicleId` int(11) NOT NULL,
   `RentalDate` datetime(6) NOT NULL,
   `ReturnDate` datetime(6) NOT NULL,
-  `VehicleId1` int(11) DEFAULT NULL,
   PRIMARY KEY (`Id`),
   KEY `IX_Bookings_UserId` (`UserId`),
   KEY `IX_Bookings_VehicleId` (`VehicleId`),
-  KEY `IX_Bookings_VehicleId1` (`VehicleId1`),
   CONSTRAINT `FK_Bookings_AspNetUsers_UserId` FOREIGN KEY (`UserId`) REFERENCES `AspNetUsers` (`Id`) ON DELETE CASCADE,
-  CONSTRAINT `FK_Bookings_Vehicles_VehicleId` FOREIGN KEY (`VehicleId`) REFERENCES `Vehicles` (`Id`) ON DELETE CASCADE,
-  CONSTRAINT `FK_Bookings_Vehicles_VehicleId1` FOREIGN KEY (`VehicleId1`) REFERENCES `Vehicles` (`Id`)
+  CONSTRAINT `FK_Bookings_Vehicles_VehicleId` FOREIGN KEY (`VehicleId`) REFERENCES `Vehicles` (`Id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -269,7 +266,7 @@ CREATE TABLE `Vehicles` (
   `Price` decimal(65,30) NOT NULL,
   `ImageUrl` longtext NOT NULL,
   PRIMARY KEY (`Id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -278,6 +275,12 @@ CREATE TABLE `Vehicles` (
 
 LOCK TABLES `Vehicles` WRITE;
 /*!40000 ALTER TABLE `Vehicles` DISABLE KEYS */;
+INSERT INTO `Vehicles` VALUES
+(1,'Toyota Corolla','2022',18000.000000000000,'https://example.com/images/corolla2022.jpg'),
+(2,'Honda Civic','2021',22000.00000000000,'https://example.com/images/civic2021.jpg'),
+(3,'Ford Mustang','2020',30000.000000000000000000000000000000,'https://example.com/images/mustang2020.jpg'),
+(4,'Chevrolet Camaro','2021',35000.000000000000000000000000000000,'https://example.com/images/camaro2021.jpg'),
+(5,'Tesla Model S','2023',85000.000000000000000000000000000000,'https://example.com/images/models2023.jpg');
 /*!40000 ALTER TABLE `Vehicles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -302,13 +305,9 @@ CREATE TABLE `__EFMigrationsHistory` (
 LOCK TABLES `__EFMigrationsHistory` WRITE;
 /*!40000 ALTER TABLE `__EFMigrationsHistory` DISABLE KEYS */;
 INSERT INTO `__EFMigrationsHistory` VALUES
-('20240810052624_InitialMigration','8.0.7'),
-('20240810160059_UpdateApplicationDbContext','8.0.7'),
-('20240810172642_UpdateVehicleModel','8.0.7'),
-('20240810180626_UpdateUserModel','8.0.7'),
-('20240810180714_EditUserViewModel','8.0.7'),
-('20240810183557_UpdateBookingModel','8.0.7'),
-('20240830045815_InitialCreate','8.0.7');
+('20240831000218_InitialCreate','8.0.8'),
+('20240831014252_UpdateVehicleAndBookingModels','8.0.8'),
+('20240831015418_UpdateVehicleAndBookingModelss','8.0.8');
 /*!40000 ALTER TABLE `__EFMigrationsHistory` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -321,4 +320,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-08-30  7:59:34
+-- Dump completed on 2024-08-31  5:00:22
